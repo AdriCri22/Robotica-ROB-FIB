@@ -1,4 +1,5 @@
 # Robotica-ROB-FIB
+Encuentra las prácticas resueltas sobre la asignatura de Robótica (ROB) de la Facultad de Ingeniería Informática (FIB) de la Universidad Politécnica de Catalunya (UPC).
 
 |           Entrega           |   Nota  |          Comentario        |
 | :-------------------------  | :-----: | -------------------------- |
