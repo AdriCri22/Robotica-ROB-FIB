@@ -1,0 +1,89 @@
+def Lab6():
+  set_standard_analog_input_domain(0, 1)
+  set_standard_analog_input_domain(1, 1)
+  set_tool_analog_input_domain(0, 1)
+  set_tool_analog_input_domain(1, 1)
+  set_analog_outputdomain(0, 0)
+  set_analog_outputdomain(1, 0)
+  set_tool_voltage(0)
+  set_standard_digital_input_action(0, "default")
+  set_standard_digital_input_action(1, "default")
+  set_standard_digital_input_action(2, "default")
+  set_standard_digital_input_action(3, "default")
+  set_standard_digital_input_action(4, "default")
+  set_standard_digital_input_action(5, "default")
+  set_standard_digital_input_action(6, "default")
+  set_standard_digital_input_action(7, "default")
+  set_tool_digital_input_action(0, "default")
+  set_tool_digital_input_action(1, "default")
+  set_tcp(p[0.0,0.0,0.0,0.0,0.0,0.0])
+  set_payload(0.0)
+  set_gravity([0.0, 0.0, 9.82])
+  while (True):
+    $ 1 "Robot Program"
+    $ 2 "feeder≔p[-0.05, -0.49, 0, 3.1415, 0, 0]"
+    global feeder=p[-0.05, -0.49, 0, 3.1415, 0, 0]
+    $ 3 "feeder_up≔pose_add(feeder, p[0, 0, 0.2, 0, 0, 0])"
+    global feeder_up=pose_add(feeder, p[0, 0, 0.2, 0, 0, 0])
+    $ 4 "P1≔pose_add(feeder_up, p[0.1, 0.3, 0, 0, 0, 0])"
+    global P1=pose_add(feeder_up, p[0.1, 0.3, 0, 0, 0, 0])
+    $ 5 "P2≔pose_add(feeder_up, p[0.2, 0.3, 0, 0, 0, 0])"
+    global P2=pose_add(feeder_up, p[0.2, 0.3, 0, 0, 0, 0])
+    $ 6 "P3≔pose_add(feeder_up, p[0.3, 0.3, 0, 0, 0, 0])"
+    global P3=pose_add(feeder_up, p[0.3, 0.3, 0, 0, 0, 0])
+    $ 7 "P4≔pose_add(feeder_up, p[0.3, 0.2, 0, 0, 0, 0])"
+    global P4=pose_add(feeder_up, p[0.3, 0.2, 0, 0, 0, 0])
+    $ 8 "P5≔pose_add(feeder_up, p[0.3, 0.1, 0, 0, 0, 0])"
+    global P5=pose_add(feeder_up, p[0.3, 0.1, 0, 0, 0, 0])
+    $ 9 "P6≔pose_add(feeder_up, p[0.2, 0.1, 0, 0, 0, 0])"
+    global P6=pose_add(feeder_up, p[0.2, 0.1, 0, 0, 0, 0])
+    $ 10 "P7≔pose_add(feeder_up, p[0.1, 0.1, 0, 0, 0, 0])"
+    global P7=pose_add(feeder_up, p[0.1, 0.1, 0, 0, 0, 0])
+    $ 11 "P8≔pose_add(feeder_up, p[0.1, 0.2, 0, 0, 0, 0])"
+    global P8=pose_add(feeder_up, p[0.1, 0.2, 0, 0, 0, 0])
+    $ 12 "P9≔pose_add(feeder_up, p[0.2, 0.2, 0, 0, 0, 0])"
+    global P9=pose_add(feeder_up, p[0.2, 0.2, 0, 0, 0, 0])
+    $ 13 "pos≔[P1, P2, P3, P4, P5, P6, P7, P8, P9]"
+    global pos=[P1, P2, P3, P4, P5, P6, P7, P8, P9]
+    $ 14 "Apieces≔[1, 1, 1, 2, 2, 3, 3, 4, 5]"
+    global Apieces=[1, 1, 1, 2, 2, 3, 3, 4, 5]
+    $ 15 "Loop 9 times"
+    Loop_2 = 0
+    while (Loop_2 < 9):
+      $ 16 "P≔pos[Loop_2]"
+      global P=pos[Loop_2]
+      $ 17 "pieces≔Apieces[Loop_2]"
+      global pieces=Apieces[Loop_2]
+      $ 18 "Pz≔pose_add(P, p[0, 0, (0.004 + (Apieces[Loop_2] - pieces) * 0.008 - 0.2), 0, 0, 0])"
+      global Pz=pose_add(P, p[0, 0, (0.004 + (Apieces[Loop_2] - pieces) * 0.008 - 0.2), 0, 0, 0])
+      $ 19 "Loop pieces≠0"
+      while (pieces != 0):
+        $ 20 "MoveJ"
+        $ 21 "feeder"
+        movej(feeder, a=1.3962634015954636, v=1.0471975511965976)
+        $ 22 "'Instrucción para agarrar con las pinzas'"
+        # 'Instrucción para agarrar con las pinzas'
+        $ 23 "MoveJ"
+        $ 24 "feeder_up"
+        movej(feeder_up, a=1.3962634015954636, v=1.0471975511965976)
+        $ 25 "MoveJ"
+        $ 26 "P"
+        movej(P, a=1.3962634015954636, v=1.0471975511965976)
+        $ 27 "MoveL"
+        $ 28 "Pz"
+        movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], Pz), a=1.2, v=0.25)
+        $ 29 "'Instrucción para soltar'"
+        # 'Instrucción para soltar'
+        $ 30 "MoveL"
+        $ 31 "P"
+        movel(pose_trans(p[0.0,0.0,0.0,0.0,0.0,0.0], P), a=1.2, v=0.25)
+        $ 32 "MoveJ"
+        $ 33 "feeder_up"
+        movej(feeder_up, a=1.3962634015954636, v=1.0471975511965976)
+        $ 34 "pieces≔pieces - 1"
+        global pieces=pieces - 1
+      end
+      Loop_2 = Loop_2 + 1
+    end
+  end
+end

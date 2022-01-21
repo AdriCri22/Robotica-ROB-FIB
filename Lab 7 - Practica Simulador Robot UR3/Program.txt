@@ -1,0 +1,35 @@
+ Program
+   Robot Program
+     feeder≔p[-0.05, -0.49, 0, 3.1415, 0, 0]
+     feeder_up≔pose_add(feeder, p[0, 0, 0.2, 0, 0, 0])
+     P1≔pose_add(feeder_up, p[0.1, 0.3, 0, 0, 0, 0])
+     P2≔pose_add(feeder_up, p[0.2, 0.3, 0, 0, 0, 0])
+     P3≔pose_add(feeder_up, p[0.3, 0.3, 0, 0, 0, 0])
+     P4≔pose_add(feeder_up, p[0.3, 0.2, 0, 0, 0, 0])
+     P5≔pose_add(feeder_up, p[0.3, 0.1, 0, 0, 0, 0])
+     P6≔pose_add(feeder_up, p[0.2, 0.1, 0, 0, 0, 0])
+     P7≔pose_add(feeder_up, p[0.1, 0.1, 0, 0, 0, 0])
+     P8≔pose_add(feeder_up, p[0.1, 0.2, 0, 0, 0, 0])
+     P9≔pose_add(feeder_up, p[0.2, 0.2, 0, 0, 0, 0])
+     pos≔[P1, P2, P3, P4, P5, P6, P7, P8, P9]
+     Apieces≔[1, 1, 1, 2, 2, 3, 3, 4, 5]
+     Loop 9 times
+       P≔pos[Loop_2]
+       pieces≔Apieces[Loop_2]
+       Pz≔pose_add(P, p[0, 0, (0.004 + (Apieces[Loop_2] - pieces) * 0.008 - 0.2), 0, 0, 0])
+       Loop pieces≠0
+         MoveJ
+           feeder
+         'Instrucción para agarrar con las pinzas'
+         MoveJ
+           feeder_up
+         MoveJ
+           P
+         MoveL
+           Pz
+         'Instrucción para soltar'
+         MoveL
+           P
+         MoveJ
+           feeder_up
+         pieces≔pieces - 1
